@@ -21,6 +21,11 @@
 
 {% block main_column %}
     {% if user.is_authenticated %}
+
+        {% if page %}
+            Select page: {% pagination page max_page %}
+        {% endif %}
+
         {% if posts %}
             {% for post in posts %}
                 {% show_post post 2 %}
@@ -28,6 +33,10 @@
         {% else %}
              <h4>Oops!</h4>
              <p>We've got nothing to show you! Select something interesting on the right</p>
+        {% endif %}
+
+        {% if page %}
+            Select page: {% pagination page max_page %}
         {% endif %}
     {% else %}
         <h4>Welcome to microblog!</h4>

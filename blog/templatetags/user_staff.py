@@ -38,6 +38,21 @@ def show_post(context, post, depth):
             }
 
 @register.simple_tag
+def pagination(page, pages):
+    stack = set()
+    page = int(page)
+    pages = int(pages)
+    if pages > 2:
+        stack.update([1, 2, 3, pages, page, pages-1, pages-2])
+    elif pages == 2:
+        stack.update([1, 2])
+    text = ''
+    for i in sorted(stack):
+        text += '<a href="'+reverse('home', kwargs={"page" : str(i)})+'">'+str(i)+'</a> '
+    text[:-1]
+    return text
+
+@register.simple_tag
 def follow(user, username):
     user = UserProfile.objects.get(user__username=user)
     author = UserProfile.objects.get(user__username=username)

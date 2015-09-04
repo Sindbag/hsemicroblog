@@ -39,6 +39,7 @@ generator = pydenticon.Generator(5, 5, digest=hashlib.sha1,
 
 def home(request, page=1):
     posts = []
+    page = int(page)
     counter = 0
     if request.user.username:
         follows = request.user.userprofile.follows.all()
