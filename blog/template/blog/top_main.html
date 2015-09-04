@@ -1,0 +1,18 @@
+{% load popular_tags %}
+<div class="row">
+
+    <div class="col-md-6">
+        <h3>Top posts</h3>
+        {% block leftcol %}
+            {% popular_posts 10 100 %}
+        {% endblock %}
+    </div>
+
+    <div class="col-md-6">
+        <h3>Top users</h3>
+        {% block rightcol %}
+            {% popularities 20 %}
+        {% endblock %}
+    </div>
+
+</div>

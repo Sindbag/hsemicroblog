@@ -1,0 +1,15 @@
+{% extends 'blog/2col.html' %}
+
+{% load user_staff %}
+
+{% block title %}
+    Top posts and users
+{% endblock %}
+
+{% block main_column %}
+    {% include 'blog/top_main.html' %}
+{% endblock %}
+
+{% block right_column %}
+    {% user_profile_mini user.id %}
+{% endblock %}

@@ -1,0 +1,24 @@
+{% load user_staff %}
+<div>
+    <div>
+        <img src="{% userpic_src user.id %}"  alt="{{ user }}" title="{{ user }}" class="miniprofile userpic" />
+        <h3 class="miniprofile username"><a href="{% url 'username_profile' user %}">{{ user }}</a></h3>
+    </div>
+    <h4>{{ user.first_name }} {{ user.last_name }}</h4>
+    <h6>{{ user.likes }} likes for {{ user.posts_count }} posts</h6>
+    <h6>Follows {{ user.follows_c }} man</h6>
+    {% for folls in user.follows_people %}
+        <a href="{% url 'username_profile' folls %}" style="display: inline-block;">
+            <img  src="{% userpic_src folls.id %}" class="miniprofile followpic" title="{{ folls }}" alt="{{ folls }}"/>
+        </a>
+    {% endfor %}
+    {% if user.follows_c %}<a href="{% url 'userfollows' user.user.username %}">All followed</a>{% endif %}
+
+    <h6>Followed by {{ user.followed_by_c }} man</h6>
+    {% for folls in user.followed_by %}
+        <a href="{% url 'username_profile' folls %}" style="display: inline-block;">
+            <img  src="{% userpic_src folls.id %}" class="miniprofile followpic" title="{{ folls }}" alt="{{ folls }}"/>
+        </a>
+    {% endfor %}
+    {% if user.followed_by_c %}<a href="{% url 'userfollowedby' user.user.username %}">All followers</a>{% endif %}
+</div>

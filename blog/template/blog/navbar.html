@@ -1,0 +1,50 @@
+{% load user_staff %}
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{% url 'home' %}">MicroBlog</a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        {% url 'home' as homepath %}
+        {% url 'top' as toppath %}
+        <li {% ifequal request.path homepath %}class="active"{% endifequal %}><a href="{{ homepath }}">Home</a></li>
+        <li {% ifequal request.path toppath %}class="active"{% endifequal %}><a href="{{ toppath }}">Top</a></li>
+      </ul>
+        {% if user.is_authenticated %}
+          <form class="navbar-form navbar-left" action="{% url 'create_post' %}" id="create_post">
+            {% csrf_token %}
+            <div class="form-group">
+              <input type="text" class="form-control" id="create_post_text" name="posttext" placeholder="What's new?" />
+            </div>
+            <div class="btn-group" role="group">
+                <button type="button" id="create-post-btn" class="btn btn-default">Post</button>
+                <button type="submit" formmethod="get" title="Full Create Page" class="btn btn-default"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></button>
+            </div>
+          </form>
+        {% endif %}
+      <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+          {% url 'logout' as logoutpath %}
+          <a class="navbar-brand" href="{% url 'username_profile' user.username %}">
+            <span><b>{{ user.userprofile.first_name }}</b>
+                <img class="mynavbar userpic" alt="{{ user }}" src="{% userpic_src user.id %}" title="{{ user }}" />
+            </span>
+          </a>
+          <li {% ifequal request.path logoutpath %}class="active"{% endifequal %}><a href="{{ logoutpath }}">Logout</a></li>
+        {% else %}
+          {% url 'registration' as regpath %}
+          {% url 'login' as loginpath %}
+          <li {% ifequal request.path regpath %}class="active"{% endifequal %}><a href="{{ regpath }}">Register</a></li>
+          <li {% ifequal request.path loginpath %}class="active"{% endifequal %}><a href="{{ loginpath }}">Login</a></li>
+        {% endif %}
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>

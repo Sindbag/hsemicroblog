@@ -1,0 +1,24 @@
+{% if compilation %}
+    {% load user_staff %}
+
+        <div>
+            {% if count < 10 %}<h5>Popular Posts</h5>{% endif %}
+            {% for part in compilation%}
+                <div class="minipost" style="overflow: hidden;">
+                    {% if part.answerfor %}
+                        <a href="{% url 'post' part.answerfor.id %}"><span style="float:left;" class="glyphicon glyphicon-share-alt" aria-hidden="True"></span></a>
+                    {% endif %}
+                    <div>
+                        <a href="{% url 'post' part.id %}" title="Open post"><span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span></a>
+                    </div>
+                    {% like_post username part.id %}
+
+                    <span>
+                        <a href="{% url "username_profile" part.author %}">{{ part.author }}</a> on {{ part.pub_date }}<br>
+                        {{ part.text }}
+                    </span>
+                </div>
+            {% endfor %}
+        </div>
+
+{% endif %}

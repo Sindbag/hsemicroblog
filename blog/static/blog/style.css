@@ -1,0 +1,128 @@
+.main-content {
+    margin-top: 80px;
+}
+
+h4 .homepage {
+    margin-top: 30px;
+}
+
+.follow-button {
+    color:#11f;
+}
+
+.follow-button:hover {
+    color:#f08fa0;
+}
+
+.mynavbar.userpic {
+    width:40px;
+    height:40px;
+    border-radius: 15%;
+}
+
+.miniprofile.userpic {
+    display:inline-block;
+    width:40px;
+    height:40px;
+    border-radius: 15%;
+}
+
+.miniprofile.username {
+    display:inline-block;
+    vertical-align: sub;
+}
+
+.miniprofile.followpic {
+    width: 30px;
+    height: 30px;
+    border-radius:3px;
+    margin:2px;
+}
+
+div.minipost {
+    margin: 5px 0px 5px 0px;
+    padding: 5px;
+    background-color: rgba(220, 240, 240, 0.4);
+    border-radius: 8px;
+}
+
+div.minipost div {
+    display:inline-block;
+    float: right;
+    margin-left:5px;
+}
+
+div.popular_man {
+    margin-bottom: 5px;
+    display: block;
+}
+
+.follow div {
+    float: left;
+    display: inline-block;
+    padding: 5px;
+    height: 130px;
+    width: 130px;
+    align-items: center;
+}
+
+.follow div a img {
+    width: 120px;
+    height: 120px;
+}
+
+.follow div a h3 {
+    text-align: center;
+}
+
+div.likepoint {
+    display: inline-block;
+    float: right;
+}
+
+div.likepoint span.likepic {
+    cursor: pointer;
+}
+
+div.likepoint span.likepic:hover {
+    opacity: 1;
+}
+
+.disliked {
+    opacity: 0.6;
+}
+
+.liked {
+    opacity: 1;
+}
+
+.answer-button {
+    cursor: pointer;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 9999;
+    color: white;
+    display: block;
+}
+
+#answer-wrapper {
+    vertical-align: middle;
+    float: none;
+    background: #fff;
+    border: 1px solid #ccc;
+    color: #000;
+    display: block;
+    margin: 100px auto;
+    min-width: 200px;
+    max-width: 500px;
+    text-align: center;
+    padding:10px;
+    overflow:hidden;
+}

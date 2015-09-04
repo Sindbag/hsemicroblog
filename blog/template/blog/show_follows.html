@@ -1,0 +1,30 @@
+{% extends 'blog/2col.html' %}
+{% load user_staff %}
+
+{% block title %}
+    {{ title }} {{ user_name }}
+{% endblock %}
+
+{% block right_column %}
+    {% user_profile_mini user_id %}
+{% endblock %}
+
+{% block main_column %}
+    <div class="follow">
+        {% if follows %}
+            {% for fell in follows %}
+                <div class="bigfollower">
+                    <a href="{% url "username_profile" fell %}">
+                        <img src="{% userpic_src fell.id %}" title="{{ fell }}" />
+                    {% url 'userfollows' user as userfollspath %}
+                        <h3>{{ fell }}{% ifequal request.path userfollspath %}<a class="unfollowbig" data-id="{{ fell.id }}" style="color:#cc0000;" title="Unfollow">X</a>{% endifequal %}
+                        </h3>
+                    </a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h3>Oops!</h3>
+            <p>Here is no one!</p>
+        {% endif %}
+    </div>
+{% endblock %}

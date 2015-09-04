@@ -1,0 +1,44 @@
+{% extends 'blog/2col.html' %}
+
+{% load user_staff %}
+
+{% block title %}
+View Post {{ post.id }}
+{% endblock %}
+
+{% block main_column %}
+
+    <h3>Posted by <a href="{% url 'username_profile' post.author %}">{{ post.author.user.username }}</a> {% follow user post.author %} on {{ post.pub_date }}</h3>
+
+    <pre>{{ post.text }}</pre>
+
+    {% if post.answerfor %}
+        <div style="display: block; width: 80%; min-width:200px; float:right;">
+            <span style="float:left;" class="glyphicon glyphicon-share-alt" aria-hidden="True"></span>
+            {% show_post post.answerfor 2 %}
+        </div>
+    {% endif %}
+
+    {% like_post user post.id %}
+
+    <h5>{{ post.likes }} likes <br>{{ post.answers_c }} answers</h5>
+
+    {% if post.answers %}
+        <h3>Answers: </h3>
+        {% for answer in post.answers %}
+            {% show_post answer 1 %}
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}
+
+{% block right_column %}
+    {% if user.is_authenticated %}
+        {% user_profile_mini user.id %}
+    {% endif %}
+        <hr>
+    {% load popular_tags %}
+        {% popular_posts 5 100 %}
+        <hr>
+        {% popularities 5 %}
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'blog/2col.html' %}
+
+{% block main_column %}
+    <form action="/create_post/" method="POST">
+        {% csrf_token %}
+        <h3>Enter your text here:</h3>
+        <input name="fullform" hidden="true" value="true" />
+        {{ form.text }}
+        <br>
+        <button type="submit" class="btn btn-default">Post</button>
+    </form>
+{% endblock %}
+
+    {% block right_column %}
+        {% if user.is_authenticated %}
+            {% load user_staff %}
+            {% user_profile_mini user.id %}
+            <hr>
+            {% load popular_tags %}
+            {% popular_posts 5 100 %}
+            <hr>
+            {% popularities 5 %}
+        {% endif %}
+    {% endblock %}

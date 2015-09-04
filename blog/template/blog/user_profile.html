@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %}
+
+{% load popular_tags %}
+{% load user_staff %}
+
+{% block title %}
+    {% if max_page > 1 %}
+    Page {{ page }}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+     <div class="row">
+         <div class="col-md-4 col-md-push-8">
+             {% user_profile_mini user_id %}
+         </div>
+         <div class="col-md-8 col-md-pull-4" {% if user_id == user.id %} id="flow" {% endif %}>
+         {% if posts %}
+            {% for post in posts %}
+                {% show_post post 1 %}
+            {% endfor %}
+         {% else %}
+             <h4>Oops!</h4>
+             <p>User did not post anything yet.</p>
+         {% endif %}
+         </div>
+     </div>
+{% endblock %}

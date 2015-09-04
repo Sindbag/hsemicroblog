@@ -1,0 +1,9 @@
+{% block ansform %}
+    <div id="answer-wrapper">
+    <form action="/create_answer/" method="POST" id="answer-form">
+        {% csrf_token %}
+        {{ form }}
+        <button class="btn btn-default" type="submit">Answer</button>
+    </form>
+    </div>
+{% endblock %}

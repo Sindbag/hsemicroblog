@@ -1,0 +1,38 @@
+{% extends 'blog/2col.html' %}
+
+{% load popular_tags %}
+{% load user_staff %}
+
+{% block title %}
+    {% if max_page > 1 %}
+        Page {{ page }}
+    {% endif %}
+{% endblock %}
+
+    {% block right_column %}
+        {% if user.is_authenticated %}
+            {% user_profile_mini user.id %}
+            <hr>
+            {% popular_posts 5 100 %}
+            <hr>
+            {% popularities 5 %}
+        {% endif %}
+    {% endblock %}
+
+{% block main_column %}
+    {% if user.is_authenticated %}
+        {% if posts %}
+            {% for post in posts %}
+                {% show_post post 2 %}
+            {% endfor %}
+        {% else %}
+             <h4>Oops!</h4>
+             <p>We've got nothing to show you! Select something interesting on the right</p>
+        {% endif %}
+    {% else %}
+        <h4>Welcome to microblog!</h4>
+        <h5>First time here?</h5>
+        <p>If you wish to start your own microblog, press register on the right.</p>
+        {% include 'blog/top_main.html' %}
+    {% endif %}
+{% endblock %}
