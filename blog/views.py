@@ -172,7 +172,13 @@ def create_post(request, **kwargs):
         response_data['author'] = post.author.user.username
         response_data['author_link'] = str(reverse("username_profile", args=[post.author.user.username]))
         response_data['post_link'] = str(reverse("post", args=[post.id]))
+
         if request.POST.get('fullform'):
+            print(request.FILES)
+            if 'attachfile' in request.FILES:
+                request.FILES['attachfile'].name = str(post.id) + '_' + str(request.user.username)
+                post.attachfile = request.FILES['attachfile']
+            post.save()
             return redirect('post', post_id=post.id)
         else:
             return HttpResponse(

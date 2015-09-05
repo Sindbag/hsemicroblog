@@ -66,6 +66,14 @@ class Hashtags(models.Model):
 """
 
 
+"""
+# Attachments via url, todo
+class Attachment(models.Model):
+    type = models.TextField(max_length=50)
+    url = models.URLField(name='attach_url')
+"""
+
+
 class Post(models.Model):
     # Date, text and author
     text = models.TextField(max_length=280, help_text="What's new?")
@@ -74,6 +82,9 @@ class Post(models.Model):
 
     # If the post is answer
     answerfor = models.OneToOneField('self', blank=True, null=True)
+
+    # If post has an attachment
+    attachfile = models.ImageField(upload_to='static/attachments/', blank=True, null=True)
 
     # Likes counter
     likes = models.PositiveIntegerField(default=0)
@@ -115,8 +126,7 @@ class Like(models.Model):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        # exclude = ['author', 'updated', 'created', ]
-        fields = ['text', 'answerfor']
+        fields = ['text', 'answerfor', 'attachfile']
         widgets = {
             'text': forms.Textarea(
             attrs={
@@ -128,6 +138,31 @@ class PostForm(forms.ModelForm):
                 'rows' : 5,
             }),
         }
+
+    def clean_attachfile(self):
+        image = self.cleaned_data['attachfile']
+        if image:
+            w, h = get_image_dimensions(image)
+        else:
+            return
+
+        #validate dimensions
+        max_width = max_height = 500
+        if w > max_width or h > max_height:
+            raise forms.ValidationError(
+                u'Please use an image that is '
+                 '%s x %s pixels or smaller.' % (max_width, max_height))
+
+        #validate content type
+        main_type, sub = image.content_type.split('/')
+        if not (main_type == 'image' and sub in ['jpeg', 'pjpeg', 'gif', 'png']):
+            raise forms.ValidationError(u'Please use a JPEG, '
+                'GIF or PNG image.')
+
+        #validate file size
+        if len(image) > (1024 * 1024):
+            raise forms.ValidationError(
+                u'Avatar file size may not exceed 1kk.')
 
     def clean_text(self):
         text = self.cleaned_data['text']

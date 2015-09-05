@@ -47,9 +47,14 @@ def pagination(page, pages):
     elif pages == 2:
         stack.update([1, 2])
     text = ''
-    for i in sorted(stack):
-        text += '<a href="'+reverse('home', kwargs={"page" : str(i)})+'">'+str(i)+'</a> '
-    text[:-1]
+    if len(stack):
+        text = '<nav><ul class="pagination">'
+        for i in sorted(stack):
+            pageclass = ''
+            if page == i:
+                pageclass = 'active'
+            text += '<li class="' + pageclass +'"><a href="'+reverse('home', kwargs={"page" : str(i)})+'">'+str(i)+'</a></li>'
+        text += '</ul></nav>'
     return text
 
 @register.simple_tag
