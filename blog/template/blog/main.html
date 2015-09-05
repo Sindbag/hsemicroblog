@@ -23,7 +23,7 @@
     {% if user.is_authenticated %}
 
         {% if page %}
-            Select page: {% pagination page max_page %}
+            {% pagination page max_page %}
         {% endif %}
 
         {% if posts %}
