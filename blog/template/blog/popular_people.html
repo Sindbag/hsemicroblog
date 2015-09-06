@@ -2,7 +2,7 @@
     {% load user_staff %}
 
     {% load cache %}
-    {% cache 1000 toppeople count %}
+    {% cache 300 toppeople count %}
 
         <div>
             {% if count < 10 %}<h5>Popular people</h5>{% endif %}
@@ -11,7 +11,7 @@
                     <span>
                         <a href="{% url 'username_profile' man %}">
                         <img src="{% userpic_src man.id %}" class="miniprofile followpic" />
-                        {{ man }}</a> with {{ man.likes }} {{ text }}
+                        {{ man }}</a> with {{ man.likes_count }} {{ text }}
                     </span>
                 </div>
             {% endfor %}

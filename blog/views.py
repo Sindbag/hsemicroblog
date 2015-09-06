@@ -176,7 +176,7 @@ def create_post(request, **kwargs):
         if request.POST.get('fullform'):
             print(request.FILES)
             if 'attachfile' in request.FILES:
-                request.FILES['attachfile'].name = str(post.id) + '_' + str(request.user.username)
+                request.FILES['attachfile'].name = str(post.id) + '_' + str(request.user.username) + os.path.splitext(request.FILES['picture'].name)[1]
                 post.attachfile = request.FILES['attachfile']
             post.save()
             return redirect('post', post_id=post.id)
@@ -234,7 +234,7 @@ def like_post(request, post_id):
 
         response_data = {}
         response_data['post_id'] = post.id
-        response_data['likes'] = post.likes_count()
+        response_data['likes'] = post.like_set.count()
         return HttpResponse(
             json.dumps(response_data),
             content_type="application/json"

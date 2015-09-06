@@ -78,7 +78,7 @@ def like_post(user_name, post_id):
     picture = 'glyphicon glyphicon-thumbs-up'
     opacity = 'disliked'
     method = 'like_button'
-    likes = post.likes_count()
+    likes = post.likes
     if user:
         if post.author == user:
             return '<div class="likepoint" data-id="' + str(post.id) + '"><span class="post_likes">' + str(likes) + '&nbsp;</span><span class="likepic liked ' + picture + '" aria-hidden="true"></span></div>'

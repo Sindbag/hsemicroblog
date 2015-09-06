@@ -29,26 +29,11 @@ class UserProfile(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
 
-    likes = models.PositiveIntegerField(default=0)
-
-    # Update Likes count
-    def save(self, *args, **kwargs):
-        # Update likes
-        self.likes = Like.objects.filter(post__author=self).count()
-        # self.follows.add(UserProfile.objects.get(id=self.id))
-        super(UserProfile, self).save(*args, **kwargs)
-
-    def posts_count(self):
-        return Post.objects.filter(author__id=self.id).count()
-
-    def follows_c(self):
-        return self.follows.count()
+    def likes_count(self):
+        return Like.objects.filter(post__author=self.id).count()
 
     def follows_people(self, count=5):
         return self.follows.all()[:count]
-
-    def followed_by_c(self):
-        return UserProfile.objects.filter(follows=self).count()
 
     def followed_by(self, count=5):
         return UserProfile.objects.filter(follows=self).all()[:count]
@@ -86,17 +71,12 @@ class Post(models.Model):
     # If post has an attachment
     attachfile = models.ImageField(upload_to='static/attachments/', blank=True, null=True)
 
-    # Likes counter
     likes = models.PositiveIntegerField(default=0)
 
     def save(self, *args, **kwargs):
         # Update likes
-        self.likes = Like.objects.filter(post__id=self.id).count()
+        self.likes = self.like_set.count()
         super(Post, self).save(*args, **kwargs)
-
-    def likes_count(self):
-        self.likes = Like.objects.filter(post__id=self.id).count()
-        return self.likes
 
     # Display in admin panel
     def __str__(self):
@@ -104,9 +84,6 @@ class Post(models.Model):
 
     def answers(self):
         return Post.objects.filter(answerfor=self.id).all()
-
-    def answers_c(self):
-        return Post.objects.filter(answerfor=self.id).count()
 
     class Meta:
         get_latest_by = "pub_date"
@@ -121,6 +98,14 @@ class Like(models.Model):
 
     def __str__(self):
         return self.author.user.username + ' liked post #' + str(self.post.id)
+
+
+
+class Notification(models.Model):
+    answer = models.OneToOneField(Post, blank=True, null=True)
+    like = models.OneToOneField(Like, blank=True, null=True)
+    read = models.PositiveSmallIntegerField(default=0)
+    user = models.ForeignKey(UserProfile)
 
 
 class PostForm(forms.ModelForm):

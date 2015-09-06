@@ -4,7 +4,7 @@
     <h4><a title="Visit user profile" href='{% url 'username_profile' post.author.user.username %}' class="postauthor">{{ post.author.user.username }}</a>{% follow user post.author %} on {{ post.pub_date }}
     <a href="{% url 'post' post.id %}" title="Open post"><span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span></a>
     <a title="Answer!"><span class="glyphicon glyphicon-share-alt answer-button" aria-hidden="true"></span></a></h4>
-    <pre>{{ post.text }}{% if post.attachfile %}<br><img src='{{ post.attachfile }}' style="height: 200px;" />{% endif %}</pre>
+    <pre>{{ post.text }}{% if post.attachfile %}<br><img src='/{{ post.attachfile }}' style="height: 200px;" />{% endif %}</pre>
 
     {% if post.answerfor %}
         {% if depth %}

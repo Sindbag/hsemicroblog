@@ -21,7 +21,7 @@ View Post {{ post.id }}
 
     {% like_post user post.id %}
 
-    <h5>{{ post.likes }} likes <br>{{ post.answers_c }} answers</h5>
+    <h5>{{ post.like_set.count }} likes <br>{{ post.answerfor_set.count }} answers</h5>
 
     {% if post.answers %}
         <h3>Answers: </h3>
