@@ -112,7 +112,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
     os.path.join(BASE_DIR, "blog", "static"),
     os.path.join(BASE_DIR, "blog", "static", "avatars"),
+    os.path('/var/www/microblog/'),
 )
 
-STATIC_URL = '/blog/static/'
+STATIC_URL = '/static/'
 
