@@ -6,8 +6,8 @@ from django.conf.urls import include, url
 urlpatterns = [
     url(r'^$', 'blog.views.home', name='home'),
     url(r'^page/(?P<page>[0-9]+)/$', 'blog.views.home', name='home'),
-    url(r'^about$', 'blog.views.about', name='about'),
     url(r'^top$', 'blog.views.top', name='top'),
+
     url(r'^posts/(?P<post_id>[0-9]+)/$', 'blog.views.show_post', name='post'),
     url(r'^like_post/(?P<post_id>[0-9]+)/$', 'blog.views.like_post', name='like_post'),
 
