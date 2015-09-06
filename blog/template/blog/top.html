@@ -10,8 +10,8 @@
     {% include 'blog/top_main.html' %}
 {% endblock %}
 
-{% if request.user.is_authenticated %}
-    {% block right_column %}
+{% block right_column %}
+    {% if request.user.is_authenticated %}
         {% user_profile_mini user.id %}
-    {% endblock %}
-{% endif %}
+    {% endif %}
+{% endblock %}
