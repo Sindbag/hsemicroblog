@@ -22,7 +22,7 @@
 {% block main_column %}
     {% if user.is_authenticated %}
 
-        {% if page %}
+        {% if pages %}
             {% pagination page max_page %}
         {% endif %}
 
@@ -35,7 +35,7 @@
              <p>We've got nothing to show you! Select something interesting on the right</p>
         {% endif %}
 
-        {% if page %}
+        {% if pages %}
             Select page: {% pagination page max_page %}
         {% endif %}
     {% else %}
